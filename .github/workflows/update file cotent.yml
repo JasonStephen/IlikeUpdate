@@ -1,8 +1,13 @@
 name: Update file content
 
 on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
   schedule:
     - cron: '*/1 * * * *'
+  workflow_dispatch:
 
 jobs:
   update_file_content:
