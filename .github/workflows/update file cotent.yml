@@ -1,0 +1,25 @@
+name: Update file content
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+
+jobs:
+  update_file_content:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Update file content
+        run: |
+          echo "现在是$(date '+%Y年%m月%d日%H时%M分')，是第$(cat ChangeFile/count.txt)次更新" > ChangeFile/$(date '+%Y-%m-%d-%H-%M').txt
+          echo $(( $(cat ChangeFile/count.txt) + 1 )) > ChangeFile/count.txt
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Update file content"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
