@@ -2,7 +2,7 @@ name: Update file content
 
 on:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '*/1 * * * *'
 
 jobs:
   update_file_content:
