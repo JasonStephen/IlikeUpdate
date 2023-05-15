@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Update file content
         run: |
           echo "现在是$(date '+%Y年%m月%d日%H时%M分')，是第$(cat ChangeFile/count.txt)次更新" > ChangeFile/$(date '+%Y-%m-%d-%H-%M').txt
