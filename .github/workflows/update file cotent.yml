@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ "main" ]
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '*/2 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -19,10 +19,13 @@ jobs:
         run: |
           echo "现在是$(date '+%Y年%m月%d日%H时%M分')，是第$(cat ChangeFile/count.txt)次更新" > ChangeFile/$(date '+%Y-%m-%d-%H-%M').txt
           echo $(( $(cat ChangeFile/count.txt) + 1 )) > ChangeFile/count.txt
-      - name: Commit changes
+      - name: Configure Git
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+      - name: Commit changes
+        run: |
+          git add .
           git commit -m "Update file content"
       - name: Push changes
         uses: ad-m/github-push-action@master
